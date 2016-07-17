@@ -52,3 +52,6 @@ finalds<-ds %>% group_by(Activity,Subject) %>% summarise_each(funs(mean))
 
 ##remove intermediate dataset to clean up
 rm(d1,dta,dt1x,dt1y,dt1s,dt1ya,dt1t,dt2x,dt2y,dt2s,dt2ya,dt2t,dtt,to_extract,to_extract2c,dscn)
+
+##generates output in TXT
+write.table(finalds, "FinalDS.txt",row.names = FALSE)
