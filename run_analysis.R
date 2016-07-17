@@ -1,14 +1,14 @@
 
 ##extract column names
-d1<-read.delim("Ds/features.txt",header = FALSE,sep = "")
+d1<-read.delim("UCI HAR Dataset/features.txt",header = FALSE,sep = "")
 
 ##extract activity names
-dta<-read.delim("Ds/activity_labels.txt",header = FALSE,sep = "")
+dta<-read.delim("UCI HAR Dataset/activity_labels.txt",header = FALSE,sep = "")
 
 ##read the tables for the train dataset
-dt1x<-read.delim("Ds/train/X_train.txt",header = FALSE,sep = "")
-dt1y<-read.delim("Ds/train/y_train.txt",header = FALSE,sep = "")
-dt1s<-read.delim("Ds/train/subject_train.txt",header = FALSE,sep = "")
+dt1x<-read.delim("UCI HAR Dataset/train/X_train.txt",header = FALSE,sep = "")
+dt1y<-read.delim("UCI HAR Dataset/train/y_train.txt",header = FALSE,sep = "")
+dt1s<-read.delim("UCI HAR Dataset/train/subject_train.txt",header = FALSE,sep = "")
 ##Merge dataset and get activity name
 dt1ya<-merge(dt1y,dta,by.x = 1,by.y = 1,all.x = TRUE)
 dt1ya[,1] <- NULL ##remove first column
@@ -17,9 +17,9 @@ dt1ya[,1] <- NULL ##remove first column
 dt1t<-cbind(dt1ya,dt1s,dt1x)
 
 ##read the tables for the test dataset
-dt2x<-read.delim("Ds/test/X_test.txt",header = FALSE,sep = "")
-dt2y<-read.delim("Ds/test/y_test.txt",header = FALSE,sep = "")
-dt2s<-read.delim("Ds/test/subject_test.txt",header = FALSE,sep = "")
+dt2x<-read.delim("UCI HAR Dataset/test/X_test.txt",header = FALSE,sep = "")
+dt2y<-read.delim("UCI HAR Dataset/test/y_test.txt",header = FALSE,sep = "")
+dt2s<-read.delim("UCI HAR Dataset/test/subject_test.txt",header = FALSE,sep = "")
 ##Merge dataset and get activity name
 dt2ya<-merge(dt2y,dta,by.x = 1,by.y = 1,all.x = TRUE)
 dt2ya[,1] <- NULL ##remove first column
@@ -49,3 +49,6 @@ library(dplyr)
 
 ##here we create the dataset that takes the mean of each column, grouping by activity and subject
 finalds<-ds %>% group_by(Activity,Subject) %>% summarise_each(funs(mean))
+
+##remove intermediate dataset to clean up
+rm(d1,dta,dt1x,dt1y,dt1s,dt1ya,dt1t,dt2x,dt2y,dt2s,dt2ya,dt2t,dtt,to_extract,to_extract2c,dscn)
